@@ -1,0 +1,54 @@
+<h1>To do List</h1>
+<hr>
+
+<div class="row">
+  <div class="col text-right">
+    <button
+      routerLink="/todo/new"
+      class="btn btn-outline-primary">
+      <i class="fas fa-plus"></i> Add
+    </button>
+  </div>
+</div>
+<div class="row mt-3 animated fadeIn fast">
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">#Id</th>
+      <th scope="col">Name</th>
+      <th scope="col" class="text-center">Realized</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let todo of todoList;">
+      <th scope="row">{{ todo.id }}</th>
+      <td>{{ todo.name }}</td>
+      <td class="text-center">
+        <i *ngIf="todo.isDone" class="fas fa-check text-success"></i>
+        <i *ngIf="!todo.isDone" class="fas fa-times text-danger"></i>
+      </td>
+      <td class="text-right">
+        <ul style="list-style: none">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Actions</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">update</a>
+              <a class="dropdown-item" href="#">Delete</a>
+            </div>
+          </li>
+        </ul>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="alert alert-warning text-center mt-3">
+  <h4 class="alert-heading">No data found</h4>
+  <p><i class="fas fa-exclamation fa-2x"></i></p>
+</div>
+<div class="alert alert-info text-center mt-3">
+  <h4 class="alert-heading">Loading</h4>
+  <p><i class="fas fa-sync-alt fa-2x fa-spin"></i></p>
+  <p class="mb-0">Wait please!</p>
+</div>
