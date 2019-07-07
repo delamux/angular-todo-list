@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TodoService} from '../../services/todo.service';
-import {TodoModel} from '../../models/todo.model';
+import { TodoModel } from '../../models/todo.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-todoes',
@@ -8,12 +9,34 @@ import {TodoModel} from '../../models/todo.model';
   styleUrls: ['./todoes.component.css']
 })
 export class TodoesComponent implements OnInit {
-  todoList: TodoModel[];
-  constructor(private todoes: TodoService) { }
+  todoList: TodoModel[] = [];
+  loading: boolean;
+  emptyTodoes: boolean;
+  constructor(private todoes: TodoService) {
+    this.loading = false;
+  }
 
   ngOnInit() {
+    this.loading = true;
     this.todoes.todoes().subscribe( resp => {
       this.todoList = resp;
+      this.loading = false;
+      this.emptyTodoes = this.todoList.length === 0;
+    });
+  }
+
+  deleteTodo(id: string, index: number) {
+    Swal.fire({
+      title: 'Confirm delete',
+      text: `Are you sure to delete ${this.todoList[index].name}?`,
+      type: 'question',
+      showConfirmButton: true,
+      showCancelButton: true,
+    }).then( resp => {
+      if (resp.value) {
+        this.todoList.splice(index, 1);
+        this.todoes.delete(id).subscribe();
+      }
     });
   }
 

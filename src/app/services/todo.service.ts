@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TodoModel } from '../models/todo.model';
-import { map } from 'rxjs/operators';
+import { map, delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +16,14 @@ export class TodoService {
       .pipe(
         map( (resp: any) => {
             return this.createArray(resp);
-          }
-        )
+          },
+        ),
+        delay(1500)
       );
+  }
+
+  todo(id: string) {
+    return this.http.get(`${ this.url }/todoes/${id}.json`);
   }
 
   add(todo: TodoModel) {
@@ -55,5 +60,9 @@ export class TodoService {
     });
 
     return todoes;
+  }
+
+  delete(id: string) {
+    return this.http.delete(`${ this.url }/todoes/${id}.json`);
   }
 }

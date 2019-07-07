@@ -4,6 +4,7 @@ import {TodoModel} from '../../models/todo.model';
 import {TodoService} from '../../services/todo.service';
 import Swal from 'sweetalert2';
 import {Observable} from 'rxjs';
+import {ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-todo',
@@ -12,12 +13,22 @@ import {Observable} from 'rxjs';
 })
 export class TodoComponent implements OnInit {
   todo: TodoModel = new TodoModel();
-  constructor(private todoService: TodoService) { }
+  constructor(
+    private todoService: TodoService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id !== 'new') {
+      this.todoService.todo( id ).subscribe( (resp: TodoModel) => {
+        this.todo = resp;
+        this.todo.id = id;
+      });
+    }
   }
 
-  save(form: NgForm) {
+  save() {
     Swal.fire({
       title: 'Saving data!',
       type: 'info',

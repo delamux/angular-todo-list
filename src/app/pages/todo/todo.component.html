@@ -12,7 +12,7 @@
 
 <div class="row animated fadeIn faster">
   <div class="col">
-    <form (ngSubmit)="save(form)" #form="ngForm">
+    <form (ngSubmit)="save()">
       <div class="form-group">
         <label for="todo-id">Id</label>
         <input name="id" [(ngModel)]="todo.id" type="text" id="todo-id" class="form-control w-50" placeholder="ID" disabled>
