@@ -11,7 +11,7 @@
   </div>
 </div>
 <div class="row mt-3 animated fadeIn fast">
-  <table *ngIf="!loading" class="table">
+  <table *ngIf="!loading && todoList.length > 0" class="table">
     <thead class="thead-dark">
     <tr>
       <th scope="col">#Id</th>
