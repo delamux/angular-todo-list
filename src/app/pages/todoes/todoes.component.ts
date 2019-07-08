@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 export class TodoesComponent implements OnInit {
   todoList: TodoModel[] = [];
   loading: boolean;
-  emptyTodoes: boolean;
   constructor(private todoes: TodoService) {
     this.loading = false;
   }
@@ -21,7 +20,6 @@ export class TodoesComponent implements OnInit {
     this.todoes.todoes().subscribe( resp => {
       this.todoList = resp;
       this.loading = false;
-      this.emptyTodoes = this.todoList.length === 0;
     });
   }
 

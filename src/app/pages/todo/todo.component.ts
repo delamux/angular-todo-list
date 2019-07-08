@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from '@angular/forms';
 import {TodoModel} from '../../models/todo.model';
 import {TodoService} from '../../services/todo.service';
 import Swal from 'sweetalert2';
